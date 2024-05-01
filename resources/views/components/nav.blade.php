@@ -34,12 +34,10 @@
         </li>
 
         <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                    Logout
-                </p>
-            </a>
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-outline-primary">Logout</button>
+            </form>
         </li>
     </ul>
 </nav>

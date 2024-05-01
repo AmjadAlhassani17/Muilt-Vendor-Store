@@ -8,9 +8,9 @@ use App\Http\Middleware\UserType;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'middleware' => ['auth' , 'auth.check:admin,super_admin'],
+    'middleware' => ['auth:admin'],
     'as' => 'dashboard.',
-    'prefix' => 'dashboard',
+    'prefix' => 'admin/dashboard',
 ], function () {
     Route::get('/profile' , [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile' , [ProfileController::class, 'update'])->name('profile.update');
@@ -21,4 +21,4 @@ Route::group([
     Route::resource('/products' , ProductsController::class);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth' , 'auth.check:admin,super_admin'])->name('dashboard');
+Route::get('admin/dashboard', [DashboardController::class, 'index'])->middleware(['auth:admin'])->name('dashboard');

@@ -42,6 +42,8 @@
     <!-- Start Header Area -->
     <header class="header navbar-area">
         <!-- Start Topbar -->
+        <div class="container">
+        </div>
         <div class="topbar">
             <div class="container">
                 <div class="row align-items-center">
@@ -79,26 +81,41 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="{{ route('home') }}">Home</a></li>
+                                <li><a href="{{ route('front.AboutUs') }}">About Us</a></li>
+                                <li><a href="{{ route('front.ContactUs') }}">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
-                            <div class="user">
-                                <i class="lni lni-user"></i>
-                                Hello
-                            </div>
-                            <ul class="user-login">
-                                <li>
-                                    <a href="login.html">Sign In</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                            </ul>
+                            @auth
+                                <div class="user">
+                                    <i class="lni lni-user"></i>
+                                    {{ Auth::user()->name }}
+                                </div>
+                                <ul class="user-login">
+                                    <li>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign Out</a>
+                                        <form action="{{ route('logout') }}" id="logout" method="post" style="display:none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul> 
+                            @else  
+                                <div class="user">
+                                    <i class="lni lni-user"></i>
+                                    Hello
+                                </div>
+                                <ul class="user-login">
+                                    <li>
+                                        <a href="{{ route('login') }}">Sign In</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('register') }}">Register</a>
+                                    </li>
+                                </ul>  
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -385,11 +402,11 @@
                             <div class="single-footer f-link">
                                 <h3>Information</h3>
                                 <ul>
-                                    <li><a href="javascript:void(0)">About Us</a></li>
-                                    <li><a href="javascript:void(0)">Contact Us</a></li>
-                                    <li><a href="javascript:void(0)">Downloads</a></li>
-                                    <li><a href="javascript:void(0)">Sitemap</a></li>
-                                    <li><a href="javascript:void(0)">FAQs Page</a></li>
+                                    <li><a href="{{ route('front.AboutUs') }}">About Us</a></li>
+                                    <li><a href="{{ route('front.ContactUs') }}">Contact Us</a></li>
+                                    <li><a href="{{ route('front.FAQ') }}">Downloads</a></li>
+                                    <li><a href="{{ route('front.FAQ') }}">Sitemap</a></li>
+                                    <li><a href="{{ route('front.FAQ') }}">FAQs Page</a></li>
                                 </ul>
                             </div>
                             <!-- End Single Widget -->

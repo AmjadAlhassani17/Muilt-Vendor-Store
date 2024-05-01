@@ -6,6 +6,7 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class RedirectIfAuthenticated
 {
@@ -22,7 +23,10 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            if(Auth::guard($guard)->check() && Config::get('fortify.guard') == 'admin'){
+                return redirect(Config::get('fortify.home'));
+            }
+            if (Auth::guard($guard)->check() && Config::get('fortify.guard') == 'web') {
                 return redirect(RouteServiceProvider::HOME);
             }
         }
